@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\VoteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,4 +10,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('vote');
+});
+
+Route::get('/vote', function () {
+    return view('vote');
+});
+
+Route::post('/check-vote', [VoteController::class, 'checkVote'])->name('check-vote');
+Route::post('/submit-vote', [VoteController::class, 'submitVote'])->name('submit-vote');
