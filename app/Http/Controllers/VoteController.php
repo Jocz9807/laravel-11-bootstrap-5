@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Voter;
-use Illuminate\Support\Facades\Log;
 
 class VoteController extends Controller
 {
@@ -55,5 +54,14 @@ class VoteController extends Controller
         } else {
             return redirect()->back()->with('error', 'Anda tidak layak untuk mengundi.');
         }
+    }
+
+    public function result()
+    {
+        // Assuming you have a column `vote` that stores 'yes' or 'no'
+        $yesCount = Voter::where('vote', 'YA')->count();
+        $noCount = Voter::where('vote', 'TIDAK')->count();
+
+        return view('result', compact('yesCount', 'noCount'));
     }
 }
